@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+
+        #todo-container {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .category {
+            font-style: italic;
+            color: #888;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        #taskInput {
+            width: 60%;
+            padding: 8px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #addTaskBtn {
+            padding: 8px;
+            border: 1px solid #28a745;
+            border-radius: 4px;
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #addTaskBtn:hover {
+            background-color: #45a049;
+        }
+
+        #randomColorBtn {
+            margin-top: 10px;
+            padding: 8px;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #randomColorBtn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="todo-container">
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Add a new task">
+    <button onclick="addTask()" id="addTaskBtn">Add Task</button>
+    <button onclick="changeBackgroundColor()" id="randomColorBtn">Random Color</button>
+
+    <div id="tasks">
+        <!-- Tasks will be displayed here -->
+    </div>
+</div>
+
+<script>
+    function addTask() {
+        var taskInput = document.getElementById('taskInput');
+        var taskText = taskInput.value.trim();
+
+        if (taskText === '') {
+            alert('Please enter a task.');
+            return;
+        }
+
+        var tasksContainer = document.getElementById('tasks');
+        var taskDiv = document.createElement('div');
+        taskDiv.className = 'task';
+
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.onclick = function () {
+            taskLabel.classList.toggle('completed');
+        };
+
+        var taskLabel = document.createElement('span');
+        taskLabel.textContent = taskText;
+
+        var deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = function () {
+            tasksContainer.removeChild(taskDiv);
+        };
+
+        taskDiv.appendChild(checkbox);
+        taskDiv.appendChild(taskLabel);
+        taskDiv.appendChild(deleteBtn);
+
+        tasksContainer.appendChild(taskDiv);
+
+        taskInput.value = ''; // Clear the input field
+    }
+
+    function changeBackgroundColor() {
+        var randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        document.body.style.backgroundColor = randomColor;
+    }
+</script>
+
+</body>
+</html>
